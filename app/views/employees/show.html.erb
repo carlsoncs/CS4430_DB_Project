@@ -11,31 +11,6 @@
 </p>
 
 <p>
-  <strong>Business email:</strong>
-  <%= @employee.business_email %>
-</p>
-
-<p>
-  <strong>Personal email:</strong>
-  <%= @employee.personal_email %>
-</p>
-
-<p>
-  <strong>Cell phone:</strong>
-  <%= @employee.cell_phone %>
-</p>
-
-<p>
-  <strong>Business phone:</strong>
-  <%= @employee.business_phone %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @employee.address %>
-</p>
-
-<p>
   <strong>Department:</strong>
   <%= @employee.department %>
 </p>
@@ -44,6 +19,35 @@
   <strong>Office #:</strong>
   <%= @employee.office_number %>
 </p>
+
+<p>
+  <strong>Business phone:</strong>
+  <%= @employee.business_phone %>
+</p>
+
+<p>
+  <strong>Business email:</strong>
+  <%= @employee.business_email %>
+</p>
+
+<p>
+  <strong>Business Cell phone:</strong>
+  <%= @employee.cell_phone %>
+</p>
+
+
+
+<p>
+  <strong>Home Phone:</strong>
+  <%= @employee.home_phone %>
+</p>
+
+<p>
+  <strong>Personal email:</strong>
+  <%= @employee.personal_email %>
+</p>
+
+
 
 <%= link_to 'Edit', edit_employee_path(@employee) %> |
 <%= link_to 'Back', employees_path %>

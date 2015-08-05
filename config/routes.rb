@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  get 'signup' => 'employees#new', :as => 'sign_up'
   resources :employees
 
   # The priority is based upon order of creation: first created -> highest priority.
