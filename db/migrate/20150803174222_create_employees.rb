@@ -8,9 +8,10 @@ class CreateEmployees < ActiveRecord::Migration
       t.string :cell_phone, :default => 'N/A', limit: 14
       t.string :business_phone, :null => false, limit: 14
       t.string :phone_extension, :default => 'N/A', limit: 5
-      t.string :address, default: 'N/A'
+      t.string :home_phone, default: 'N/A'
       t.string :department, default: 'N/A'
       t.string :office_number, default: 'N/A'
+      t.string :extension, default: 'N/A'
       t.string :location, default: 'N/A'
       t.string :notes
 

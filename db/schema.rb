@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803174222) do
+ActiveRecord::Schema.define(version: 20150805041951) do
 
   create_table "employees", force: :cascade do |t|
     t.string   "first_name",      limit: 30,                 null: false
@@ -21,17 +21,31 @@ ActiveRecord::Schema.define(version: 20150803174222) do
     t.string   "cell_phone",      limit: 14, default: "N/A"
     t.string   "business_phone",  limit: 14,                 null: false
     t.string   "phone_extension", limit: 5,  default: "N/A"
-    t.string   "address",                    default: "N/A"
+    t.string   "home_phone",                 default: "N/A"
     t.string   "department",                 default: "N/A"
     t.string   "office_number",              default: "N/A"
+    t.string   "extension",                  default: "N/A"
     t.string   "location",                   default: "N/A"
     t.string   "notes"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
+    t.string   "password_digest"
+    t.string   "salt"
+    t.integer  "manager_id",                 default: 0
   end
 
   add_index "employees", ["department"], name: "index_employees_on_department"
   add_index "employees", ["first_name"], name: "index_employees_on_first_name"
   add_index "employees", ["last_name"], name: "index_employees_on_last_name"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",            null: false
+    t.string   "crypted_password"
+    t.string   "salt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
 
 end
