@@ -22,8 +22,10 @@ ActiveRecord::Schema.define(version: 20150803174222) do
     t.string   "business_phone",  limit: 14,                 null: false
     t.string   "phone_extension", limit: 5,  default: "N/A"
     t.string   "address",                    default: "N/A"
-    t.string   "department",                                 null: false
-    t.string   "office_number",                              null: false
+    t.string   "department",                 default: "N/A"
+    t.string   "office_number",              default: "N/A"
+    t.string   "location",                   default: "N/A"
+    t.string   "notes"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end
