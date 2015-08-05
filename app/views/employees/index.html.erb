@@ -7,13 +7,14 @@
     <tr>
       <th>First name</th>
       <th>Last name</th>
-      <th>Business email</th>
-      <th>Personal email</th>
-      <th>Cell phone</th>
-      <th>Business phone</th>
-      <th>Address</th>
       <th>Department</th>
       <th>Office #</th>
+      <th>Business phone</th>
+      <th>Cell phone</th>
+      <th>Business email</th>
+      <th>home_phone</th>
+      <th>Personal email</th>
+
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -23,13 +24,13 @@
       <tr>
         <td><%= employee.first_name %></td>
         <td><%= employee.last_name %></td>
-        <td><%= employee.business_email %></td>
-        <td><%= employee.personal_email %></td>
-        <td><%= employee.cell_phone %></td>
-        <td><%= employee.business_phone %></td>
-        <td><%= employee.address %></td>
         <td><%= employee.department %></td>
         <td><%= employee.office_number %></td>
+        <td><%= employee.business_phone %></td>
+        <td><%= employee.cell_phone %></td>
+        <td><%= employee.business_email %></td>
+        <td><%= employee.home_phone %></td>
+        <td><%= employee.personal_email %></td>
         <td><%= link_to 'Show', employee %></td>
         <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
         <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
