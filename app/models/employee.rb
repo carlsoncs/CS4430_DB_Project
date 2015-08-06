@@ -8,6 +8,19 @@ class Employee < ActiveRecord::Base
   validates_uniqueness_of :business_email
 
 
+def self.authenticate(email, password)
+  employee = Employee.find_by business_email: email
+
+  if employee && employee.password_digest == BCrypt::Engine.hash_secret(password, employee.salt)
+    employee
+  else
+    nil
+  end
+end
+
+def full_name
+  "#{self.first_name} #{self.last_name}"
+end
 private
 
   def encrypt_password
