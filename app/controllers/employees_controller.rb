@@ -3,8 +3,11 @@ class EmployeesController < ApplicationController
   before_action :verify_edit_auth, only: [:edit, :update, :destroy]
   # GET /employees
   # GET /employees.json
+
+
+
   def index
-    @employees = Employee.all
+      @employees = Employee.search(params[:search], params[:dept_filter])
   end
 
   # GET /employees/1

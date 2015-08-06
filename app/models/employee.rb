@@ -22,6 +22,13 @@ def full_name
   "#{self.first_name} #{self.last_name}"
 end
 
+def self.search(search = nil, dept_filter = nil)
+  if search
+    @employees = Employee.where('first_name LIKE ? OR last_name LIKE ? OR business_email LIKE ? OR department LIKE ?', "%#{search}%","%#{search}%","%#{search}%","%#{search}%")
+  else
+    @employees = Employee.all
+  end
+end
 
 private
 
