@@ -2,6 +2,15 @@
 
 <h1>Listing Employees</h1>
 
+<div class="search">
+  <%= form_tag employees_path, method: :get do %>
+    <p>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "Search", :name => nil %>
+    </p>
+  <% end %>
+</div>
+
 <table>
   <thead>
     <tr>
