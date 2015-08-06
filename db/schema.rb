@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150803174222) do
     t.string   "location",        default: "N/A"
     t.string   "notes"
     t.integer  "manager_id"
+    t.boolean  "admin",           default: false
     t.string   "password_digest"
     t.string   "salt"
     t.datetime "created_at",                      null: false

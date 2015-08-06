@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
-
+  before_action :verify_edit_auth, only: [:edit, :update, :destroy]
   # GET /employees
   # GET /employees.json
   def index
@@ -70,5 +70,15 @@ class EmployeesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:first_name, :last_name, :business_email, :personal_email, :cell_phone, :business_phone, :address, :department, :office_number, :extension, :home_phone, :password, :password_confirmation)
+    end
+
+    def verify_edit_auth
+      unless current_employee
+        redirect_to root_path, alert: "Not Authorized."
+        return
+      end
+      if(current_employee.business_email != @employee.business_email)
+        redirect_to root_path, alert: "Not Authorized" unless current_employee.admin?
+      end
     end
 end
