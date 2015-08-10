@@ -41,8 +41,16 @@
         <td><%= employee.home_phone %></td>
         <td><%= employee.personal_email %></td>
         <td><%= link_to 'Show', employee %></td>
-        <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
-        <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_employee %>
+            <% if current_employee.admin? %>
+                <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
+                <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% else %>
+                <% if current_employee.id == employee.id %>
+                    <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
+                <% end %>
+            <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
