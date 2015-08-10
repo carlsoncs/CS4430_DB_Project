@@ -35,8 +35,6 @@
   <%= @employee.cell_phone %>
 </p>
 
-
-
 <p>
   <strong>Home Phone:</strong>
   <%= @employee.home_phone %>
@@ -47,7 +45,9 @@
   <%= @employee.personal_email %>
 </p>
 
-
-
-<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<% if current_employee %>
+    <% if current_employee.id == @employee.id || current_employee.admin? %>
+        <%= link_to 'Edit', edit_employee_path(@employee) %> |
+    <% end %>
+<% end %>
 <%= link_to 'Back', employees_path %>
