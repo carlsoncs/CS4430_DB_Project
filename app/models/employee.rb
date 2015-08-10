@@ -23,10 +23,20 @@ def full_name
 end
 
 def self.search(search = nil, dept_filter = nil)
+
   if search
-    @employees = Employee.where('first_name LIKE ? OR last_name LIKE ? OR business_email LIKE ? OR department LIKE ?', "%#{search}%","%#{search}%","%#{search}%","%#{search}%")
+    search_strings = search.split
+    @employees = Employee.where('first_name LIKE ? OR last_name LIKE ? OR business_email LIKE ? OR department LIKE ?', "%#{search_strings[0]}%","%#{search_strings[0]}%","%#{search_strings[0]}%","%#{search_strings[0]}%")
+
+    unless search_strings.length <=1
+      for i in 2..search_strings.length do
+      @employees += Employee.where('first_name LIKE ? OR last_name LIKE ? OR business_email LIKE ? OR department LIKE ?', "%#{search_strings[i-1]}%","%#{search_strings[i-1]}%","%#{search_strings[i-1]}%","%#{search_strings[i-1]}%")
+      end
+    end
+  @employees = @employees.uniq
+
   else
-    @employees = Employee.all
+    @employees = []
   end
 end
 
