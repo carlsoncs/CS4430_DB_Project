@@ -41,8 +41,24 @@
         <td><%= employee.home_phone %></td>
         <td><%= employee.personal_email %></td>
         <td><%= link_to 'Show', employee %></td>
-        <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
-        <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <!-- if the user is logged in and an admin -->
+        <!-- let them edit and delete all users -->
+        <% if current_employee %>
+            <% if current_employee.admin? %>
+                <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
+            <% end %>
+
+            <!-- don't let the admin delete himself -->
+            <% if current_employee.admin? && current_employee.id != employee.id %>
+                <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+
+            <!-- let the employee edit only himself -->
+            <% if current_employee.id == employee.id && !current_employee.admin? %>
+                <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
+            <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
