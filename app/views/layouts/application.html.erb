@@ -10,7 +10,10 @@
 
   <div id="employee-login">
     <% if current_employee %>
-      Logged in as <%= current_employee.full_name %>
+      Logged in as <%= link_to current_employee.full_name, employee_path(current_employee.id) %>
+        <% if current_employee.admin? %>
+            (admin)
+        <% end %> |
       <%= link_to "Log out", log_out_path %>
     <% else %>
       <%= link_to "Sign up", sign_up_path %> or

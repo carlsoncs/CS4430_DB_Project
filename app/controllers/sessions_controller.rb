@@ -6,7 +6,8 @@ class SessionsController < ApplicationController
     employee = Employee.authenticate(params[:business_email], params[:password])
     if employee
       session[:employee_id] = employee.id
-      redirect_to employee, :notice => "Logged in."
+      #redirect_to employee, :notice => "Logged in."
+      redirect_to root_path
     else
       flash.now[:alert] = "Invalid password or email."
       render "new"
