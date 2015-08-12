@@ -23,18 +23,20 @@ def full_name
 end
 
 def self.search(search = nil, dept_filter = nil)
-
   if search
     search_strings = search.split
-    @employees = Employee.where('first_name LIKE ? OR last_name LIKE ? OR business_email LIKE ? OR department LIKE ?', "%#{search_strings[0]}%","%#{search_strings[0]}%","%#{search_strings[0]}%","%#{search_strings[0]}%")
+    search_strings2 = search_strings.collect {|s| s.strip}
+    if search_strings2.count == 1
+      @employees = Employee.where('first_name LIKE ? OR last_name LIKE ? OR business_email LIKE ? OR department LIKE ?', "%#{search_strings[0]}%","%#{search_strings[0]}%","%#{search_strings[0]}%","%#{search_strings[0]}%")
+    else
+      emps = search_strings2.collect { |str| Employee.where('first_name LIKE ? OR last_name LIKE ? OR business_email LIKE ? OR department LIKE ?', "%#{str}%","%#{str}%","%#{str}%","%#{str}%")}
 
-    unless search_strings.length <=1
-      for i in 2..search_strings.length do
-      @employees += Employee.where('first_name LIKE ? OR last_name LIKE ? OR business_email LIKE ? OR department LIKE ?', "%#{search_strings[i-1]}%","%#{search_strings[i-1]}%","%#{search_strings[i-1]}%","%#{search_strings[i-1]}%")
-      end
+      emps2 = emps.reject{|e| e.blank?}
+      @employees = emps2.reduce(:&)
+
+      @employees ||= []
+
     end
-  @employees = @employees.uniq
-
   else
     @employees = []
   end
