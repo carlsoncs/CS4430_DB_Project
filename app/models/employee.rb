@@ -31,7 +31,9 @@ def self.search(search = nil, dept_filter = nil)
       emps = search_strings.collect { |str| Employee.where('first_name LIKE ? OR last_name LIKE ? OR business_email LIKE ? OR department LIKE ?', "%#{str}%","%#{str}%","%#{str}%","%#{str}%")}
 
       emps2 = emps.reject{|e| e.blank?}
-      @employees = emps2[0] & emps2[1]
+      @employees = emps2.reduce(:&)
+
+      @employees ||= []
 
     end
   else
