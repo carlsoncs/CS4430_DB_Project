@@ -48,8 +48,6 @@
       </div>
     </div>
 
-
-
     <div class='personal'>
       <div class="field">
         <%= f.label :home_phone %><br>
@@ -72,6 +70,13 @@
         <%= f.password_field :password_confirmation %>
       </div>
     </div>
+
+    <% if current_employee && current_employee.admin? %>
+        <div class="admin">
+            <%= f.label :admin %>
+            <%= f.check_box :admin %>
+        </div>
+    <% end %>
 
     <div class="actions">
       <%= f.submit %>
