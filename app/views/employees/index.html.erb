@@ -6,6 +6,7 @@
   <%= form_tag employees_path, method: :get do %>
     <p>
       <%= text_field_tag :search, params[:search] %>
+      <%= select(:dept_filter, nil, Employee.unique_departments, :prompt => 'Specify Department') %>
       <%= submit_tag "Search", :name => nil %>
     </p>
   <% end %>
