@@ -1,3 +1,45 @@
 // Place all the styles related to the Employees controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@function set-notification-text-color($color) {
+  @if (lightness($color) > 50) {
+    @return #000000; // Lighter backgorund, return dark color
+  } @else {
+    @return #ffffff; // Darker background, return light color
+  }
+}
+
+$creator1-Chris: #fff;
+$creator2-Ben: #fff;
+$creator3-Byron: #fff;
+
+%notification {
+  border-radius: 20px;
+  display: block;
+  font-size: 3em;
+  font-family: 'Brush Script MT', cursive;
+  margin: .5em (-1.5em);
+  width: 25%;
+  text-align: center;
+}
+
+h2{
+  color: #FFD700;
+}
+
+
+.notification {
+  @extend %notification;
+}
+.creator1-Chris {
+  background: $creator1-Chris;
+  color: set-notification-text-color($creator1-Chris);
+}
+.creator2-Ben {
+  background: $creator2-Ben;
+  color: set-notification-text-color($creator2-Ben);
+}
+.creator3-Byron {
+  background: $creator3-Byron;
+  color: set-notification-text-color($creator3-Byron);
+}
