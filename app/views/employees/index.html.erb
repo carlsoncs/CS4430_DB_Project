@@ -1,3 +1,4 @@
+
 <p id="notice"><%= notice %></p>
 <h3>Western Michigan University</h3>
 <h1>Search Employees</h1>
@@ -7,9 +8,14 @@
     <p>
       <%= text_field_tag :search, params[:search], autofocus: true %>
       <%= select(nil, :dept_filter, options_for_select(Employee.unique_departments,params[:dept_filter]) , :prompt => 'All') %>
+      <% if current_employee && current_employee.admin? %>
+          <%= check_box_tag 'show_all' %>
+          <%= label_tag 'Show All Employees?' %>
+      <% end %>
       <%= submit_tag "Search", :name => nil %>
     </p>
   <% end %>
+
 </div>
 
 <table>
@@ -65,6 +71,7 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate @employees %>
 
 <br>
 

@@ -29,7 +29,11 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 
+# Handy gem to make db data persist.
 gem 'seed_dump'
+
+# Simple Pagination Solution
+gem 'kaminari'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

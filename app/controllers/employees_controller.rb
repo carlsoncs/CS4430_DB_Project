@@ -7,7 +7,7 @@ class EmployeesController < ApplicationController
 
 
   def index
-      @employees = Employee.search(params[:search], params[:dept_filter])
+      @employees = Kaminari.paginate_array(Employee.search(params[:search], params[:dept_filter], params[:show_all])).page(params[:page]).per(20)
   end
 
   # GET /employees/1
