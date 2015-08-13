@@ -23,31 +23,34 @@ def full_name
   "#{self.first_name} #{self.last_name}"
 end
 
+
 def self.search(search = nil, dept_filter = nil)
-  if !search.blank?
+  if !search.blank? #If a search string is passed:
     search_strings = search.split #Break the search string up into individual terms.
-    search_strings2 = search_strings.collect {|s| s.strip} #Remove whitespace
-    if search_strings2.count == 1 #Don't do extra processing if only one string being searched.
-      @employees = Employee.where('first_name LIKE ? OR last_name LIKE ? OR business_email LIKE ?', "%#{search_strings[0]}%","%#{search_strings[0]}%","%#{search_strings[0]}%")
+    search_strings.collect! {|s| s.strip} #Remove whitespace from each token.
+    if search_strings.count == 1 #Don't do extra processing if only one token being searched.
+      @employees = Employee.where('first_name LIKE ? OR last_name LIKE ? OR business_email LIKE ?', "#{search_strings[0]}%","#{search_strings[0]}%","#{search_strings[0]}%").order(:last_name, :first_name)
     else
-      emps = search_strings2.collect { |str| Employee.where('first_name LIKE ? OR last_name LIKE ? OR business_email LIKE ?', "%#{str}%","%#{str}%","%#{str}%")}
-
-      emps2 = emps.reject{|e| e.blank?} #Remove any search strings that returned
-                                        #an empty set.
-      @employees = emps2.reduce(:&) #Intersect each set of results that returned
+      emps = search_strings.collect { |str| Employee.where('first_name LIKE ? OR last_name LIKE ? OR business_email LIKE ?', "#{str}%","#{str}%","#{str}%")}
+      emps.reject!{|e| e.blank?} #Remove any search strings that returned
+                                 #an empty set before intersecting results.
+      @employees = emps.reduce(:&) #Intersect each set of results that returned
                                     #something and save that to employees variable.
+      @employees = @employees.order(:last_name, :first_name)
     end
-  elsif dept_filter
-    @employees = Employee.dept(dept_filter)
+    if !dept_filter.blank? #If something was passed in the deptartment filter:
+      @employees = @employees.where(:department => dept_filter) #filter the results
+    end
+  elsif !dept_filter.blank? #If search is blank but dept_filter is not:
+    @employees = Employee.dept(dept_filter).order(:last_name, :first_name)#filter all employees by dept
   else
-    @employees = []
+    @employees = []#Show nothing.
   end
 
-  if dept_filter && !@employees.nil?
-    @employees = @employees.where(department: dept_filter)
-  end
-  @employees ||= []     #Incase the result search with department is nil
+  @employees ||= []     #Incase the search returns nil, give it an empty array.
 end
+
+
 
 def self.unique_departments
   Employee.uniq.pluck(:department)

@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Listing Employees</h1>
+<h3>Western Michigan University</h3>
+<h1>Search Employees</h1>
 
 <div class="search">
   <%= form_tag employees_path, method: :get do %>
     <p>
-      <%= text_field_tag :search, params[:search] %>
-      <%= select(:dept_filter, nil, Employee.unique_departments, :prompt => 'Specify Department') %>
+      <%= text_field_tag :search, params[:search], autofocus: true %>
+      <%= select(nil, :dept_filter, Employee.unique_departments, :prompt => 'All') %>
       <%= submit_tag "Search", :name => nil %>
     </p>
   <% end %>
@@ -24,6 +24,7 @@
       <th>Business email</th>
       <th>home_phone</th>
       <th>Personal email</th>
+
 
       <th colspan="3"></th>
     </tr>
@@ -68,3 +69,8 @@
 <br>
 
 <%= link_to 'New Employee', new_employee_path %>
+
+<h2>Site Administrators</h2>
+<p class="notification creator1-Chris">Chris Carlson</p>
+<p class="notification creator2-Ben">Ben Masters</p>
+<p class="notification creator3-Byron">Byron Swift</p>
