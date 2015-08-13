@@ -12,6 +12,7 @@
   <% end %>
 </div>
 
+<% if !@employees.blank? %>
 <table>
   <thead>
     <tr>
@@ -24,8 +25,6 @@
       <th>Business email</th>
       <th>home_phone</th>
       <th>Personal email</th>
-
-
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -42,7 +41,9 @@
         <td><%= employee.business_email %></td>
         <td><%= employee.home_phone %></td>
         <td><%= employee.personal_email %></td>
-        <td><%= link_to 'Show', employee %></td>
+
+        <!-- commenting out for now, we can delete later -ben -->
+        <!-- <td><%= link_to 'Show', employee %></td> -->
 
         <!-- if the user is logged in and an admin -->
         <!-- let them edit and delete all users -->
@@ -65,7 +66,11 @@
     <% end %>
   </tbody>
 </table>
-
+    <% else if !params[:search].blank? %>
+    <p class="byron_can_style_this">No results returned for: <%= params[:search] %></p>
+    <p class="byron_can_style_this">Please expand your search or create a <%= link_to 'New Employee', new_employee_path %></p>
+    <% end %>
+<% end %>
 <br>
 
 <h2>Site Administrators</h2>
