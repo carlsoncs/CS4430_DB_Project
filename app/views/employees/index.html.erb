@@ -6,7 +6,7 @@
   <%= form_tag employees_path, method: :get do %>
     <p>
       <%= text_field_tag :search, params[:search], autofocus: true %>
-      <%= select(nil, :dept_filter, Employee.unique_departments, :prompt => 'All') %>
+      <%= select(nil, :dept_filter, options_for_select(Employee.unique_departments,params[:dept_filter]) , :prompt => 'All') %>
       <%= submit_tag "Search", :name => nil %>
     </p>
   <% end %>
