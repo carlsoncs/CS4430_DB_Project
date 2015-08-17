@@ -28,12 +28,9 @@ end
 
 def self.search(search = nil, dept_filter = nil, show_all = false)
 
-  if show_all || dept_filter.present?
-    if show_all
-      @employees = Employee.all
-    else
-      @employees = Employee.dept(dept_filter)
-    end
+
+  if show_all
+    @employees = Employee.all
   else
     if !search.blank? #If a search string is passed:
       search_strings = search.split #Break the search string up into individual terms.
@@ -47,9 +44,16 @@ def self.search(search = nil, dept_filter = nil, show_all = false)
         @employees = emps.reduce(:&) #Intersect each set of results that returned
                                       #something and save that to employees variable.
       end
+      if dept_filter.present?
+        @employees = @employees & (Employee.dept dept_filter)
+      end
       @employees = @employees.sort_by { |e| [e.last_name, e.first_name]}
     else
+      if dept_filter.present?
+        @employees = Employee.dept dept_filter
+      else
       @employees = []#Show nothing.
+      end
     end
   end
   @employees ||= []     #Incase the search returns nil, give it an empty array.
